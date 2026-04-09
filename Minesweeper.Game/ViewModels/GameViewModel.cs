@@ -165,6 +165,9 @@ namespace Minesweeper.Game.ViewModels
 
         private void CheckWinCondition()
         {
+            // АКО ИГРАТА ВЕЧЕ Е ПРИКЛЮЧИЛА, ПРЕКРАТЯВАМЕ ПОВТОРНИТЕ ПРОВЕРКИ
+            if (IsGameOver) return;
+
             // Играта е спечелена, ако всички клетки БЕЗ мини са отворени
             bool isWon = Board.Where(c => !c.IsMine).All(c => c.IsRevealed);
 
