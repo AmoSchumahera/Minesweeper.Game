@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Minesweeper.Game.Data;
+using Minesweeper.Game.Models;
+using Minesweeper.Game.Services;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using System.Windows.Input;
 using System.Windows.Threading;
-using Minesweeper.Game.Models;
-using Minesweeper.Game.Data;
 
 namespace Minesweeper.Game.ViewModels
 {
@@ -14,6 +15,7 @@ namespace Minesweeper.Game.ViewModels
     {
         private readonly int _loggedInUserId;
         private readonly DispatcherTimer _timer;
+        private readonly AudioService _audioService;
         private bool _isFirstClick = true;
 
         // Настройки на дъската
@@ -62,6 +64,7 @@ namespace Minesweeper.Game.ViewModels
         public GameViewModel(int loggedInUserId)
         {
             _loggedInUserId = loggedInUserId;
+            _audioService = new AudioService();
             Board = new ObservableCollection<Cell>();
 
             RevealCommand = new RelayCommand<Cell>(RevealCell, canExecute: _ => !IsGameOver);
@@ -178,12 +181,15 @@ namespace Minesweeper.Game.ViewModels
 
             if (win)
             {
+                _audioService.PlayWinSound(); // ПУСКАМЕ ЗВУКА ЗА ПОБЕДА
                 GameStatus = $"Победа! Време: {TimeElapsed} сек.";
                 SaveScoreToDatabase();
             }
             else
             {
+                _audioService.PlayLoseSound(); // ПУСКАМЕ ЗВУКА ЗА ЗАГУБА
                 GameStatus = "Бум! Опитай пак.";
+
                 // Показваме всички мини при загуба
                 foreach (var mine in Board.Where(c => c.IsMine))
                 {
