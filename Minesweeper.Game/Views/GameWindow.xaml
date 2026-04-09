@@ -38,6 +38,15 @@
                         </Style>
                     </Button.Resources>
                 </Button>
+                
+                <Button Content="🏆 Класации" Click="OpenLeaderboard_Click"
+        Padding="10,5" Background="#10B981" Foreground="White" FontWeight="Bold" BorderThickness="0" Cursor="Hand" Margin="0,0,20,0">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
 
                 <TextBlock Text="Zoom: " VerticalAlignment="Center" Foreground="#4B5563"/>
                 <Slider x:Name="ZoomSlider" Minimum="0.3" Maximum="3.0" Value="1.0" Width="100" VerticalAlignment="Center" TickFrequency="0.1" IsSnapToTickEnabled="True"/>

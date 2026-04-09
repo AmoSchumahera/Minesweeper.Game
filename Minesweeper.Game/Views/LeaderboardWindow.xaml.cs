@@ -13,18 +13,13 @@ using System.Windows.Shapes;
 namespace Minesweeper.Game.Views
 {
     /// <summary>
-    /// Interaction logic for GameWindow.xaml
+    /// Interaction logic for LeaderboardWindow.xaml
     /// </summary>
-    public partial class GameWindow : Window
+    public partial class LeaderboardWindow : Window
     {
-        public GameWindow()
+        public LeaderboardWindow()
         {
             InitializeComponent();
-        }
-        private void OpenLeaderboard_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            var leaderboardWindow = new LeaderboardWindow();
-            leaderboardWindow.ShowDialog(); // ShowDialog блокира играта, докато гледаш класациите
         }
     }
 }
