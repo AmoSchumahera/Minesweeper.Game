@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Minesweeper.Game.ViewModels"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         mc:Ignorable="d"
         Title="Зала на славата" Height="550" Width="550"
         WindowStartupLocation="CenterScreen"
@@ -12,6 +13,93 @@
     <Window.DataContext>
         <local:LeaderboardViewModel />
     </Window.DataContext>
+
+    <Window.Resources>
+        <CollectionViewSource x:Key="SortedWeekly" Source="{Binding WeeklyScores}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="MinesCount" Direction="Descending"/>
+                <scm:SortDescription PropertyName="TimeInSeconds" Direction="Ascending"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+
+        <CollectionViewSource x:Key="SortedMonthly" Source="{Binding MonthlyScores}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="MinesCount" Direction="Descending"/>
+                <scm:SortDescription PropertyName="TimeInSeconds" Direction="Ascending"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+
+        <CollectionViewSource x:Key="SortedAllTime" Source="{Binding AllTimeScores}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="MinesCount" Direction="Descending"/>
+                <scm:SortDescription PropertyName="TimeInSeconds" Direction="Ascending"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+
+        <DataTemplate x:Key="RankTemplate">
+            <TextBlock x:Name="RankText" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=(ItemsControl.AlternationIndex)}" Value="0">
+                    <Setter TargetName="RankText" Property="Text" Value="🥇"/>
+                    <Setter TargetName="RankText" Property="FontSize" Value="24"/>
+                    <Setter TargetName="RankText" Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#FFD700" BlurRadius="15" ShadowDepth="0" Opacity="0.9" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=(ItemsControl.AlternationIndex)}" Value="1">
+                    <Setter TargetName="RankText" Property="Text" Value="🥈"/>
+                    <Setter TargetName="RankText" Property="FontSize" Value="24"/>
+                    <Setter TargetName="RankText" Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#A3A3A3" BlurRadius="15" ShadowDepth="0" Opacity="0.9" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=(ItemsControl.AlternationIndex)}" Value="2">
+                    <Setter TargetName="RankText" Property="Text" Value="🥉"/>
+                    <Setter TargetName="RankText" Property="FontSize" Value="24"/>
+                    <Setter TargetName="RankText" Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#CD7F32" BlurRadius="15" ShadowDepth="0" Opacity="0.9" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=(ItemsControl.AlternationIndex)}" Value="3">
+                    <Setter TargetName="RankText" Property="Text" Value="4"/>
+                    <Setter TargetName="RankText" Property="Foreground" Value="#9CA3AF"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=(ItemsControl.AlternationIndex)}" Value="4">
+                    <Setter TargetName="RankText" Property="Text" Value="5"/>
+                    <Setter TargetName="RankText" Property="Foreground" Value="#9CA3AF"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=(ItemsControl.AlternationIndex)}" Value="5">
+                    <Setter TargetName="RankText" Property="Text" Value="6"/>
+                    <Setter TargetName="RankText" Property="Foreground" Value="#9CA3AF"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=(ItemsControl.AlternationIndex)}" Value="6">
+                    <Setter TargetName="RankText" Property="Text" Value="7"/>
+                    <Setter TargetName="RankText" Property="Foreground" Value="#9CA3AF"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=(ItemsControl.AlternationIndex)}" Value="7">
+                    <Setter TargetName="RankText" Property="Text" Value="8"/>
+                    <Setter TargetName="RankText" Property="Foreground" Value="#9CA3AF"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=(ItemsControl.AlternationIndex)}" Value="8">
+                    <Setter TargetName="RankText" Property="Text" Value="9"/>
+                    <Setter TargetName="RankText" Property="Foreground" Value="#9CA3AF"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=(ItemsControl.AlternationIndex)}" Value="9">
+                    <Setter TargetName="RankText" Property="Text" Value="10"/>
+                    <Setter TargetName="RankText" Property="Foreground" Value="#9CA3AF"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </Window.Resources>
 
     <Border Background="White" CornerRadius="12" Margin="20">
         <Border.Effect>
@@ -27,7 +115,7 @@
 
             <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,20">
                 <TextBlock Text="🏆" FontSize="28" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                <TextBlock Text="ЗАЛАТА НА СЛАВАТА" FontSize="26" FontWeight="ExtraBold" Foreground="#1F2937" VerticalAlignment="Center"/>
+                <TextBlock Text="Зала на славата" FontSize="26" FontWeight="ExtraBold" Foreground="#1F2937" VerticalAlignment="Center"/>
             </StackPanel>
 
             <Separator Grid.Row="1" Margin="0,0,0,10" Background="#E5E7EB"/>
@@ -59,7 +147,6 @@
                         <Setter Property="BorderThickness" Value="0"/>
                         <Setter Property="Background" Value="Transparent"/>
                         <Setter Property="Margin" Value="0,10,0,0"/>
-                        <Setter Property="AlternationCount" Value="2"/>
                     </Style>
 
                     <Style TargetType="GridViewColumnHeader">
@@ -81,6 +168,19 @@
                             <Trigger Property="ItemsControl.AlternationIndex" Value="1">
                                 <Setter Property="Background" Value="#F9FAFB"/>
                             </Trigger>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="3">
+                                <Setter Property="Background" Value="#F9FAFB"/>
+                            </Trigger>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="5">
+                                <Setter Property="Background" Value="#F9FAFB"/>
+                            </Trigger>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="7">
+                                <Setter Property="Background" Value="#F9FAFB"/>
+                            </Trigger>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="9">
+                                <Setter Property="Background" Value="#F9FAFB"/>
+                            </Trigger>
+
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background" Value="#EFF6FF"/>
                                 <Setter Property="Cursor" Value="Hand"/>
@@ -90,39 +190,42 @@
                 </TabControl.Resources>
 
                 <TabItem Header="Седмична">
-                    <ListView ItemsSource="{Binding WeeklyScores}">
+                    <ListView ItemsSource="{Binding Source={StaticResource SortedWeekly}}" AlternationCount="10">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="ИГРАЧ" DisplayMemberBinding="{Binding User.Username}" Width="160"/>
+                                <GridViewColumn CellTemplate="{StaticResource RankTemplate}" Width="55"/>
+                                <GridViewColumn Header="ИГРАЧ" DisplayMemberBinding="{Binding User.Username}" Width="125"/>
+                                <GridViewColumn Header="МИНИ" DisplayMemberBinding="{Binding MinesCount}" Width="80"/>
                                 <GridViewColumn Header="ВРЕМЕ" DisplayMemberBinding="{Binding TimeInSeconds, StringFormat={}{0} сек.}" Width="100"/>
-                                <GridViewColumn Header="МИНИ" DisplayMemberBinding="{Binding MinesCount}" Width="90"/>
-                                <GridViewColumn Header="ДАТА" DisplayMemberBinding="{Binding DatePlayed, StringFormat=dd.MM.yyyy}" Width="110"/>
+                                <GridViewColumn Header="ДАТА" DisplayMemberBinding="{Binding DatePlayed, StringFormat=dd.MM.yyyy}" Width="100"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
                 </TabItem>
 
                 <TabItem Header="Месечна">
-                    <ListView ItemsSource="{Binding MonthlyScores}">
+                    <ListView ItemsSource="{Binding Source={StaticResource SortedMonthly}}" AlternationCount="10">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="ИГРАЧ" DisplayMemberBinding="{Binding User.Username}" Width="160"/>
+                                <GridViewColumn CellTemplate="{StaticResource RankTemplate}" Width="55"/>
+                                <GridViewColumn Header="ИГРАЧ" DisplayMemberBinding="{Binding User.Username}" Width="125"/>
+                                <GridViewColumn Header="МИНИ" DisplayMemberBinding="{Binding MinesCount}" Width="80"/>
                                 <GridViewColumn Header="ВРЕМЕ" DisplayMemberBinding="{Binding TimeInSeconds, StringFormat={}{0} сек.}" Width="100"/>
-                                <GridViewColumn Header="МИНИ" DisplayMemberBinding="{Binding MinesCount}" Width="90"/>
-                                <GridViewColumn Header="ДАТА" DisplayMemberBinding="{Binding DatePlayed, StringFormat=dd.MM.yyyy}" Width="110"/>
+                                <GridViewColumn Header="ДАТА" DisplayMemberBinding="{Binding DatePlayed, StringFormat=dd.MM.yyyy}" Width="100"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
                 </TabItem>
 
                 <TabItem Header="All-Time">
-                    <ListView ItemsSource="{Binding AllTimeScores}">
+                    <ListView ItemsSource="{Binding Source={StaticResource SortedAllTime}}" AlternationCount="10">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="ИГРАЧ" DisplayMemberBinding="{Binding User.Username}" Width="160"/>
+                                <GridViewColumn CellTemplate="{StaticResource RankTemplate}" Width="55"/>
+                                <GridViewColumn Header="ИГРАЧ" DisplayMemberBinding="{Binding User.Username}" Width="125"/>
+                                <GridViewColumn Header="МИНИ" DisplayMemberBinding="{Binding MinesCount}" Width="80"/>
                                 <GridViewColumn Header="ВРЕМЕ" DisplayMemberBinding="{Binding TimeInSeconds, StringFormat={}{0} сек.}" Width="100"/>
-                                <GridViewColumn Header="МИНИ" DisplayMemberBinding="{Binding MinesCount}" Width="90"/>
-                                <GridViewColumn Header="ДАТА" DisplayMemberBinding="{Binding DatePlayed, StringFormat=dd.MM.yyyy}" Width="110"/>
+                                <GridViewColumn Header="ДАТА" DisplayMemberBinding="{Binding DatePlayed, StringFormat=dd.MM.yyyy}" Width="100"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
