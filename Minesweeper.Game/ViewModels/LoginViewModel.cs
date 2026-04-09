@@ -26,6 +26,13 @@ namespace Minesweeper.Game.ViewModels
             set { _errorMessage = value; OnPropertyChanged(); }
         }
 
+        private string _messageColor = "Red";
+        public string MessageColor
+        {
+            get => _messageColor;
+            set { _messageColor = value; OnPropertyChanged(); }
+        }
+
         // Превключвател: true = Логин екран, false = Регистрация екран
         private bool _isLoginMode = true;
         public bool IsLoginMode
@@ -61,6 +68,9 @@ namespace Minesweeper.Game.ViewModels
 
         private void ExecuteSubmit(PasswordBox passwordBox)
         {
+            // По подразбиране връщаме цвета на червен при всеки нов опит
+            MessageColor = "Red";
+
             if (string.IsNullOrWhiteSpace(Username) || passwordBox == null || string.IsNullOrWhiteSpace(passwordBox.Password))
             {
                 ErrorMessage = "Моля, попълнете всички полета!";
@@ -74,6 +84,8 @@ namespace Minesweeper.Game.ViewModels
                 var user = _authService.Login(Username, password);
                 if (user != null)
                 {
+                    // УСПЕХ: Правим цвета зелен
+                    MessageColor = "Green";
                     ErrorMessage = "Успешен вход! Зареждане на играта...";
 
                     // Създаваме новия прозорец за играта и му подаваме GameViewModel с ID-то на потребителя
@@ -96,8 +108,13 @@ namespace Minesweeper.Game.ViewModels
                 bool success = _authService.Register(Username, password);
                 if (success)
                 {
+                    //Първо се сменя режима за "ВХОД"
+                    IsLoginMode = true;
+
+                    // УСПЕХ: Правим цвета зелен
+                    MessageColor = "Green";
                     ErrorMessage = "Успешна регистрация! Вече можете да влезете.";
-                    IsLoginMode = true; // Връщаме го на екран за вход
+                     // Връщаме го на екран за вход с празни полета
                     passwordBox.Clear();
                 }
                 else
