@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Minesweeper.Game.ViewModels"
         mc:Ignorable="d"
-        Title="Minesweeper - Вход" Height="450" Width="400"
+        Title="Minesweeper - Вход" Height="511" Width="400"
         WindowStartupLocation="CenterScreen"
         Background="#F3F4F6">
 
@@ -13,9 +13,9 @@
         <local:LoginViewModel />
     </Window.DataContext>
 
-    <Grid>
-        <Border Background="White" CornerRadius="10" Padding="30" Margin="40"
-                VerticalAlignment="Center">
+    <Grid Margin="0,-12,0,39">
+        <Border Background="White" CornerRadius="10" Padding="30" Margin="40,49,40,0"
+                VerticalAlignment="Top" Height="394">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="15" ShadowDepth="2" Opacity="0.1" />
             </Border.Effect>

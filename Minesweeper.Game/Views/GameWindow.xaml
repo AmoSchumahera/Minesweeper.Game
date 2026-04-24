@@ -8,7 +8,7 @@
         Title="Minesweeper - Игра" Height="750" Width="680"
         WindowStartupLocation="CenterScreen">
 
-    <Grid>
+    <Grid Margin="0,-38,0,0">
         <Grid.Style>
             <Style TargetType="Grid">
                 <Setter Property="Background" Value="#F9FAFB"/>
@@ -201,16 +201,77 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                        <StackPanel.Resources>
+                            <Style TargetType="RadioButton">
+                                <Setter Property="Foreground" Value="#4B5563"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=ThemeDark, Path=IsChecked}" Value="True">
+                                        <Setter Property="Foreground" Value="#D1D5DB"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=ThemeRetro, Path=IsChecked}" Value="True">
+                                        <Setter Property="Foreground" Value="White"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Resources>
                         <RadioButton x:Name="ThemeModern" Content="Светла" IsChecked="True" Margin="0,0,10,0"/>
                         <RadioButton x:Name="ThemeDark" Content="Тъмна" Margin="0,0,10,0"/>
                         <RadioButton x:Name="ThemeRetro" Content="Ретро"/>
                     </StackPanel>
 
-                    <TextBlock Grid.Column="1" Text="{Binding GameStatus}" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Text="{Binding GameStatus}" FontSize="18" FontWeight="ExtraBold" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="#4B5563"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=ThemeDark, Path=IsChecked}" Value="True">
+                                        <Setter Property="Foreground" Value="#D1D5DB"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=ThemeRetro, Path=IsChecked}" Value="True">
+                                        <Setter Property="Foreground" Value="White"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsGameOver}" Value="True">
+                                        <Setter Property="Foreground" Value="#EF4444"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
 
                     <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-                        <TextBlock Text="👤 " FontSize="16" VerticalAlignment="Center"/>
-                        <TextBlock Text="{Binding PlayerName}" FontSize="16" FontWeight="ExtraBold" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                        <TextBlock Text="👤 " FontSize="16" VerticalAlignment="Center">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="#6B7280"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=ThemeDark, Path=IsChecked}" Value="True">
+                                            <Setter Property="Foreground" Value="#9CA3AF"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=ThemeRetro, Path=IsChecked}" Value="True">
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+                        <TextBlock Text="{Binding PlayerName}" FontSize="16" FontWeight="ExtraBold" VerticalAlignment="Center" Margin="0,0,15,0">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="#3B82F6"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=ThemeDark, Path=IsChecked}" Value="True">
+                                            <Setter Property="Foreground" Value="#60A5FA"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=ThemeRetro, Path=IsChecked}" Value="True">
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
                         <Button Content="🏆 Класации" Click="OpenLeaderboard_Click" Padding="15,10" Background="#10B981" Foreground="White" FontWeight="Bold" BorderThickness="0" Cursor="Hand">
                             <Button.Resources>
                                 <Style TargetType="Border">

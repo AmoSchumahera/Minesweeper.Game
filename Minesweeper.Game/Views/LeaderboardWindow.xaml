@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Minesweeper.Game.ViewModels"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         mc:Ignorable="d"
-        Title="Зала на славата" Height="550" Width="550"
+        Title="Зала на славата" Height="550" Width="604"
         WindowStartupLocation="CenterScreen"
         Background="#F3F4F6">
 
@@ -121,6 +121,12 @@
             <Separator Grid.Row="1" Margin="0,0,0,10" Background="#E5E7EB"/>
 
             <TabControl Grid.Row="2" Background="Transparent" BorderThickness="0">
+
+                <TabControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </TabControl.ItemsPanel>
 
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
