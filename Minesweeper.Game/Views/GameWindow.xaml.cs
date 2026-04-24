@@ -24,6 +24,7 @@ namespace Minesweeper.Game.Views
         private void OpenLeaderboard_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var leaderboardWindow = new LeaderboardWindow();
+            leaderboardWindow.Owner = this; // Поставя класацията над основния прозорец
             leaderboardWindow.ShowDialog(); // ShowDialog блокира играта, докато гледаш класациите
         }
     }

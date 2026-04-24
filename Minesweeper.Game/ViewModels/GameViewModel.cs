@@ -22,6 +22,13 @@ namespace Minesweeper.Game.ViewModels
         public int Rows { get; } = 15;
         public int Columns { get; } = 15;
 
+        private string _playerName;
+        public string PlayerName
+        {
+            get => _playerName;
+            set { _playerName = value; OnPropertyChanged(); }
+        }
+
         private int _mineCount = 30; // По подразбиране са 30
         public int MineCount
         {
@@ -66,6 +73,15 @@ namespace Minesweeper.Game.ViewModels
             _loggedInUserId = loggedInUserId;
             _audioService = new AudioService();
             Board = new ObservableCollection<Cell>();
+
+            using (var context = new AppDbContext())
+            {
+                var user = context.Users.Find(_loggedInUserId);
+                if (user != null)
+                {
+                    PlayerName = user.Username;
+                }
+            }
 
             RevealCommand = new RelayCommand<Cell>(RevealCell, canExecute: _ => !IsGameOver);
             FlagCommand = new RelayCommand<Cell>(FlagCell, canExecute: _ => !IsGameOver);

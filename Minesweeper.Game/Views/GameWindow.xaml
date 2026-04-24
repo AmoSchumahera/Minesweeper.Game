@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Minesweeper.Game.ViewModels"
         mc:Ignorable="d"
-        Title="Minesweeper - Игра" Height="700" Width="650"
+        Title="Minesweeper - Игра" Height="750" Width="680"
         WindowStartupLocation="CenterScreen">
 
     <Grid>
@@ -97,7 +97,7 @@
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Button Content="🔄 Нова Игра" Command="{Binding RestartCommand}" 
-                                Padding="15,8" Background="#3B82F6" Foreground="White" FontWeight="Bold" FontSize="14" BorderThickness="0" Cursor="Hand" Margin="0,0,20,0">
+                                Padding="15,8" Background="#3B82F6" Foreground="White" FontWeight="Bold" BorderThickness="0" Cursor="Hand" Margin="0,0,20,0">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="8"/>
@@ -105,7 +105,7 @@
                             </Button.Resources>
                         </Button>
                         <TextBlock Text="🔍" FontSize="16" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                        <Slider x:Name="ZoomSlider" Minimum="0.3" Maximum="3.0" Value="1.0" Width="100" VerticalAlignment="Center" TickFrequency="0.1" IsSnapToTickEnabled="True"/>
+                        <Slider x:Name="ZoomSlider" Minimum="0.3" Maximum="3.0" Value="1.0" Width="100" VerticalAlignment="Center"/>
                     </StackPanel>
 
                     <Border Grid.Column="2" Padding="12,8">
@@ -126,7 +126,7 @@
                         </Border.Style>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <TextBlock Text="💣" FontSize="18" Margin="0,0,8,0"/>
-                            <TextBox Text="{Binding MineCount, UpdateSourceTrigger=PropertyChanged}" Width="40" Background="Transparent" BorderThickness="0" TextAlignment="Center" FontSize="20" FontWeight="ExtraBold" VerticalAlignment="Center">
+                            <TextBox Text="{Binding MineCount, UpdateSourceTrigger=PropertyChanged}" Width="40" Background="Transparent" BorderThickness="0" TextAlignment="Center" FontSize="20" FontWeight="ExtraBold">
                                 <TextBox.Style>
                                     <Style TargetType="TextBox">
                                         <Setter Property="Foreground" Value="#991B1B"/>
@@ -145,19 +145,16 @@
                     </Border>
                 </Grid>
 
-                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="0,10">
+                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding Board}" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Rows="15" Columns="15"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
-
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Button Width="32" Height="32" Margin="1.5"
-                                        Command="{Binding DataContext.RevealCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
-                                        CommandParameter="{Binding}">
+                                <Button Width="32" Height="32" Margin="1.5" Command="{Binding DataContext.RevealCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}">
                                     <Button.InputBindings>
                                         <MouseBinding MouseAction="RightClick" Command="{Binding DataContext.FlagCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}"/>
                                     </Button.InputBindings>
@@ -166,57 +163,30 @@
                                             <Border x:Name="CellBorder" Background="{Binding Background}" BorderBrush="#D1D5DB" BorderThickness="1" CornerRadius="6">
                                                 <TextBlock x:Name="CellText" Text="{Binding Content}" Foreground="{Binding Foreground}" FontSize="18" FontWeight="ExtraBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                             </Border>
-
                                             <ControlTemplate.Triggers>
-                                                <MultiDataTrigger>
-                                                    <MultiDataTrigger.Conditions>
-                                                        <Condition Binding="{Binding ElementName=ThemeDark, Path=IsChecked}" Value="True"/>
-                                                        <Condition Binding="{Binding IsRevealed}" Value="False"/>
-                                                    </MultiDataTrigger.Conditions>
-                                                    <Setter TargetName="CellBorder" Property="Background" Value="#374151"/>
-                                                    <Setter TargetName="CellBorder" Property="BorderBrush" Value="#4B5563"/>
-                                                </MultiDataTrigger>
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
                                                         <Condition Binding="{Binding ElementName=ThemeDark, Path=IsChecked}" Value="True"/>
                                                         <Condition Binding="{Binding IsRevealed}" Value="True"/>
                                                     </MultiDataTrigger.Conditions>
                                                     <Setter TargetName="CellBorder" Property="Background" Value="#111827"/>
-                                                    <Setter TargetName="CellBorder" Property="BorderBrush" Value="#1F2937"/>
+                                                    <Setter TargetName="CellText" Property="Foreground" Value="#F9FAFB"/>
                                                 </MultiDataTrigger>
-
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
                                                         <Condition Binding="{Binding ElementName=ThemeRetro, Path=IsChecked}" Value="True"/>
                                                         <Condition Binding="{Binding IsRevealed}" Value="False"/>
                                                     </MultiDataTrigger.Conditions>
                                                     <Setter TargetName="CellBorder" Property="Background" Value="#C0C0C0"/>
-                                                    <Setter TargetName="CellBorder" Property="BorderBrush" Value="White"/>
                                                     <Setter TargetName="CellBorder" Property="BorderThickness" Value="3,3,0,0"/>
                                                     <Setter TargetName="CellBorder" Property="CornerRadius" Value="0"/>
                                                 </MultiDataTrigger>
-                                                <MultiDataTrigger>
-                                                    <MultiDataTrigger.Conditions>
-                                                        <Condition Binding="{Binding ElementName=ThemeRetro, Path=IsChecked}" Value="True"/>
-                                                        <Condition Binding="{Binding IsRevealed}" Value="True"/>
-                                                    </MultiDataTrigger.Conditions>
-                                                    <Setter TargetName="CellBorder" Property="Background" Value="#C0C0C0"/>
-                                                    <Setter TargetName="CellBorder" Property="BorderBrush" Value="#808080"/>
-                                                    <Setter TargetName="CellBorder" Property="BorderThickness" Value="1"/>
-                                                    <Setter TargetName="CellBorder" Property="CornerRadius" Value="0"/>
-                                                </MultiDataTrigger>
-
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="CellBorder" Property="Opacity" Value="0.75"/>
-                                                    <Setter Property="Cursor" Value="Hand"/>
-                                                </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
                                     </Button.Template>
                                 </Button>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
-
                         <ItemsControl.LayoutTransform>
                             <ScaleTransform ScaleX="{Binding ElementName=ZoomSlider, Path=Value}" ScaleY="{Binding ElementName=ZoomSlider, Path=Value}"/>
                         </ItemsControl.LayoutTransform>
@@ -231,62 +201,24 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                        <StackPanel.Resources>
-                            <Style TargetType="RadioButton">
-                                <Setter Property="Foreground" Value="#4B5563"/>
-                                <Setter Property="FontWeight" Value="SemiBold"/>
-                                <Setter Property="Margin" Value="0,0,10,0"/>
-                                <Setter Property="Cursor" Value="Hand"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=ThemeDark, Path=IsChecked}" Value="True">
-                                        <Setter Property="Foreground" Value="#D1D5DB"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </StackPanel.Resources>
-
-                        <TextBlock Text="🎨 Тема: " FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,5,0">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Foreground" Value="#1F2937"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ElementName=ThemeDark, Path=IsChecked}" Value="True">
-                                            <Setter Property="Foreground" Value="White"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-
-                        <RadioButton x:Name="ThemeModern" Content="Светла" IsChecked="True"/>
-                        <RadioButton x:Name="ThemeDark" Content="Тъмна"/>
+                        <RadioButton x:Name="ThemeModern" Content="Светла" IsChecked="True" Margin="0,0,10,0"/>
+                        <RadioButton x:Name="ThemeDark" Content="Тъмна" Margin="0,0,10,0"/>
                         <RadioButton x:Name="ThemeRetro" Content="Ретро"/>
                     </StackPanel>
 
-                    <TextBlock Grid.Column="1" Text="{Binding GameStatus}" FontSize="18" FontWeight="ExtraBold" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Foreground" Value="#4B5563"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=ThemeDark, Path=IsChecked}" Value="True">
-                                        <Setter Property="Foreground" Value="#9CA3AF"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding IsGameOver}" Value="True">
-                                        <Setter Property="Foreground" Value="#EF4444"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                    <TextBlock Grid.Column="1" Text="{Binding GameStatus}" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                    <Button Grid.Column="2" Content="🏆 Класации" Click="OpenLeaderboard_Click"
-                            Padding="15,10" Background="#10B981" Foreground="White" FontWeight="Bold" FontSize="14" BorderThickness="0" Cursor="Hand">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="8"/>
-                            </Style>
-                        </Button.Resources>
-                    </Button>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="👤 " FontSize="16" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding PlayerName}" FontSize="16" FontWeight="ExtraBold" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                        <Button Content="🏆 Класации" Click="OpenLeaderboard_Click" Padding="15,10" Background="#10B981" Foreground="White" FontWeight="Bold" BorderThickness="0" Cursor="Hand">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="8"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </StackPanel>
                 </Grid>
             </Grid>
         </Border>
