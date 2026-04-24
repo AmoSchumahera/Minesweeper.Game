@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Minesweeper.Game.ViewModels"
         mc:Ignorable="d"
-        Title="Minesweeper - Игра" Height="750" Width="680"
+        Title="Minesweeper - Игра" Height="750" Width="755"
         WindowStartupLocation="CenterScreen">
 
     <Grid Margin="0,-38,0,0">
