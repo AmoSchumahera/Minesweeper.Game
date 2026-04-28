@@ -12,7 +12,7 @@ using Minesweeper.Game.Data;
 namespace Minesweeper.Game.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260408225830_InitialCreate")]
+    [Migration("20260428215650_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -50,6 +50,32 @@ namespace Minesweeper.Game.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("GameScores");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DatePlayed = new DateTime(2026, 4, 25, 10, 30, 0, 0, DateTimeKind.Unspecified),
+                            MinesCount = 20,
+                            TimeInSeconds = 45,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DatePlayed = new DateTime(2026, 4, 20, 14, 15, 0, 0, DateTimeKind.Unspecified),
+                            MinesCount = 15,
+                            TimeInSeconds = 30,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DatePlayed = new DateTime(2026, 3, 15, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            MinesCount = 40,
+                            TimeInSeconds = 120,
+                            UserId = 1
+                        });
                 });
 
             modelBuilder.Entity("Minesweeper.Game.Models.User", b =>
@@ -78,6 +104,15 @@ namespace Minesweeper.Game.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2026, 4, 29, 0, 56, 49, 370, DateTimeKind.Local).AddTicks(1856),
+                            PasswordHash = "$2a$11$qR7E.fBIdJ9V1N3F6mZ.OeZ/v.X0NqFzY7S3p4Q9U8h.vG1M2V4m6",
+                            Username = "ProPlayer"
+                        });
                 });
 
             modelBuilder.Entity("Minesweeper.Game.Models.GameScore", b =>

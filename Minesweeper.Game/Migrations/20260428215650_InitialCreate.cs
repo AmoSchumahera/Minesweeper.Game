@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Minesweeper.Game.Migrations
 {
     /// <inheritdoc />
@@ -46,6 +48,21 @@ namespace Minesweeper.Game.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "CreatedAt", "PasswordHash", "Username" },
+                values: new object[] { 1, new DateTime(2026, 4, 29, 0, 56, 49, 370, DateTimeKind.Local).AddTicks(1856), "$2a$11$qR7E.fBIdJ9V1N3F6mZ.OeZ/v.X0NqFzY7S3p4Q9U8h.vG1M2V4m6", "ProPlayer" });
+
+            migrationBuilder.InsertData(
+                table: "GameScores",
+                columns: new[] { "Id", "DatePlayed", "MinesCount", "TimeInSeconds", "UserId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2026, 4, 25, 10, 30, 0, 0, DateTimeKind.Unspecified), 20, 45, 1 },
+                    { 2, new DateTime(2026, 4, 20, 14, 15, 0, 0, DateTimeKind.Unspecified), 15, 30, 1 },
+                    { 3, new DateTime(2026, 3, 15, 9, 0, 0, 0, DateTimeKind.Unspecified), 40, 120, 1 }
                 });
 
             migrationBuilder.CreateIndex(
